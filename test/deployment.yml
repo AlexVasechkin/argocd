@@ -1,20 +1,24 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: myapp
+  name: short-app-deployment
 spec:
+  replicas: 1
   selector:
     matchLabels:
-      app: myapp
+      components: frontend
   template:
     metadata:
+      name: short-app
       labels:
-        app: myapp
+        components: frontend
     spec:
       containers:
-      - name: myapp
-        image: busybox
+      - name: short-app
+        image: antonlarichev/short-app:v1.4
+        ports:
+          - containerPort: 80
         resources:
           limits:
             memory: "128Mi"
-            cpu: "500m"
+            cpu: "100m"
